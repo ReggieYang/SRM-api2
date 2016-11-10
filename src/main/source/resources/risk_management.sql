@@ -38,6 +38,24 @@ INSERT INTO `followup` VALUES ('1', 'a', '2016-06-06 00:00:00', '123');
 
 
 -- ----------------------------
+-- Table structure for user
+-- ----------------------------
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `user_name` varchar(255) DEFAULT NULL,
+  `position` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `company` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of user
+-- ----------------------------
+INSERT INTO `user` VALUES ('kaimyang', 'elder Wang', '123456', 'eBay');
+INSERT INTO `user` VALUES ('gaowei', 'sa', 'asa', 'eBay');
+INSERT INTO `user` VALUES ('zhouweilu', 's', 's', 's');
+
+-- ----------------------------
 -- Table structure for project_developer
 -- ----------------------------
 DROP TABLE IF EXISTS `project_developer`;
@@ -111,22 +129,6 @@ INSERT INTO `risk` VALUES ('3', 'nasaddme2', 'x', 'x', 'x', 'x', 'x', 'x', '123'
 INSERT INTO `risk` VALUES ('4', '5zzz', 'x', 'x', 'x', 'x', 'x', 'x', '123');
 INSERT INTO `risk` VALUES ('5', 'nasasssme2', 'x', 'x', 'x', 'x', 'x', 'x', '123');
 
--- ----------------------------
--- Table structure for user
--- ----------------------------
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
-  `user_name` varchar(255) DEFAULT NULL,
-  `position` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `company` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- ----------------------------
--- Records of user
--- ----------------------------
-INSERT INTO `user` VALUES ('kaimyang', 'elder Wang', '123456', 'eBay');
-INSERT INTO `user` VALUES ('gaowei', 'sa', 'asa', 'eBay');
-INSERT INTO `user` VALUES ('zhouweilu', 's', 's', 's');
 
 
