@@ -1,0 +1,56 @@
+<div style="max-width:340px;margin-left:auto;margin-right:auto;padding-top:40px;">
+  <h3 style="text-align:center;">RisKick</h3>
+  <form (ngSubmit)="onSignUp()" #registerForm="ngForm">
+    <div class="form-group">
+      <label for="name">User Name</label>
+      <input type="text" class="form-control" id="name" required
+            [(ngModel)]="user.userName" name="name"
+            #name="ngModel">
+      <div [hidden]="name.valid || name.pristine" 
+            class="alert alert-danger">
+        User name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" required
+            [(ngModel)]="user.password" name="password"
+            #password="ngModel">
+      <div [hidden]="password.valid || password.pristine" 
+            class="alert alert-danger">
+        Password is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="corp">Corp Name</label>
+      <input type="text" class="form-control" id="corp" required
+            [(ngModel)]="user.corp" name="corp"
+            #corp="ngModel">
+      <div [hidden]="corp.valid || corp.pristine" 
+            class="alert alert-danger">
+        Corp name is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="Role">Role</label>
+      <select class="form-control" id="role" required
+              [(ngModel)]="user.role" name="role" 
+              #role="ngModel" >
+          <option *ngFor="let r of roles" [value]="r">{{r}}</option>
+      </select>
+      <div [hidden]="role.valid || role.pristine" 
+            class="alert alert-danger">
+        Role is required
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!registerForm.form.valid" style="width:100%;">Sign up for RisKick</button>
+
+    <div style="text-align:center;margin-top:15px;">
+      Had an account? <a href="signIn"> Sign in.</a>
+    </div>
+  </form>
+</div>

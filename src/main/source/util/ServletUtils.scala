@@ -15,9 +15,6 @@ object ServletUtils {
     lazy val ALL_DOMAIN_NAME = "*"
 
     ServletActionContext.getResponse.setContentType("text/json;charset=utf-8")
-    ServletActionContext.getResponse.addHeader(RESPONSE_HEADER, ALL_DOMAIN_NAME)
-    ServletActionContext.getResponse.addHeader(RESPONSE_HEADER2, "GET, POST, OPTIONS")
-    ServletActionContext.getResponse.addHeader(RESPONSE_HEADER3, "content-type")
     val out = ServletActionContext.getResponse.getWriter
     out.print(s)
     out.flush()

@@ -18,18 +18,18 @@ class UserService(conn: Connection) {
     DaoFactory.save(conn, userDao.userTable, user, userDao.userColumns)
   }
 
-  def verifyUser(userName: String, password: String): String = {
+  def verifyUser(userName: String, password: String): ResultMessage = {
     lazy val SUCCESS = "success"
     lazy val FAIL = "fail"
     lazy val NO_SUCH_USER = "no such user"
     lazy val PASSWORD_WRONG = "password wrong"
 
     val user = userDao.getUser(userName)
-    Utils.serializeJson(if (user == null) {
+    if (user == null) {
       ResultMessage(FAIL, NO_SUCH_USER)
     }
     else if (user.password == password) bean.ResultMessage(SUCCESS, "")
-    else ResultMessage(FAIL, PASSWORD_WRONG))
+    else ResultMessage(FAIL, PASSWORD_WRONG)
 
   }
 

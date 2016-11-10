@@ -1,0 +1,148 @@
+body, .ui.menu, .ui.header {
+    font-family: '微软雅黑';
+}
+
+.ui.secondary.pointing.menu .item {
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+
+.avatar {
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.university {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.round.image {
+    border-radius: 50%;
+}
+
+#personal_info {
+    width: 150px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#education_info {
+    width: 300px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 3em;
+}
+
+.ui.inverted .header {
+    color: rgba(255, 255, 255, .9);
+}
+
+.skill-progress i, .skill-progress span {
+    font-size: 3em;
+    color: #1b1c1d;
+}
+
+.skill-progress .title {
+    height: 4em;
+}
+
+.skill-progress .ui.progress {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-way i {
+    font-size: 3em;
+}
+
+.contact-way span {
+    font-size: 1.2em;
+}
+
+.weixin-QRcode {
+    width: 6em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*origin*/
+.hidden.menu {
+    display: none;
+}
+
+.masthead.segment {
+    min-height: 700px;
+    padding: 1em 0em;
+}
+.masthead .logo.item img {
+    margin-right: 1em;
+}
+.masthead .ui.menu .ui.button {
+    margin-left: 0.5em;
+}
+.masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+}
+.masthead h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+}
+
+.ui.vertical.stripe {
+    padding: 4em 0em;
+    margin-bottom: 1px;
+}
+.ui.vertical.stripe h3 {
+    font-size: 2em;
+}
+.ui.vertical.stripe .button + h3,
+.ui.vertical.stripe p + h3 {
+    margin-top: 3em;
+}
+.ui.vertical.stripe .floated.image {
+    clear: both;
+}
+.ui.vertical.stripe p {
+    font-size: 1.33em;
+}
+
+.footer.segment {
+    padding: 5em 0em;
+}
+
+.secondary.pointing.menu .toc.item {
+    display: none;
+}
+
+@media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+    display: none !important;
+    }
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+    display: none;
+    }
+    .secondary.pointing.menu .toc.item {
+    display: block;
+    }
+    .masthead.segment {
+    min-height: 350px;
+    }
+    .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+    }
+    .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+    }
+}

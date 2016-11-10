@@ -7,7 +7,7 @@
 <struts>
     <package name="User" namespace="/" extends="struts-default">
         <action name="login" class="action.TestAction">
-            <result name="success">/WEB-INF/test/1.html</result>
+            <result name="success">login.jsp</result>
         </action>
         <!--ProjectAction-->
         <!--获取全部项目信息-->
@@ -39,6 +39,7 @@
         </action>
         <!--验证用户-->
         <action name="verifyUser" class="action.UserAction" method="verifyUser">
+            <result name="success"></result>
         </action>
         <!--显示同事-->
         <action name="getColleague" class="action.UserAction" method="getColleague">
@@ -74,6 +75,15 @@
         <action name="getFollowup" class="action.FollowupAction" method="allFollowup">
         </action>
         <!--FollowupAction-->
+    </package>
+
+    <!-- ajax数据 -->
+    <package name="json" namespace="/JSON" extends="struts-default, json-default">
+        <action name="log" class="action.UserAction" method="log">
+            <result type="json">
+                <param name="root">jsonResult</param>
+            </result>
+        </action>
     </package>
 
 </struts>
