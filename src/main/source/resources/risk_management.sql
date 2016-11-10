@@ -65,7 +65,9 @@ CREATE TRIGGER `create_project`
 AFTER INSERT ON `project` 
     FOR EACH ROW BEGIN
         INSERT INTO `project_developer` 
-        SET project_id = NEW.project_id, developer_name=NEW.creator_name;
+		SELECT NEW.project_id, u2.user_name
+		FROM user u1, user u2
+		WHERE u1.user_name = NEW.creator_name AND u1.company = u2.company;
     END;
 
 

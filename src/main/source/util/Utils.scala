@@ -12,6 +12,8 @@ object Utils {
 
   lazy val EmptyString = ""
 
+  lazy val NULL_ID = -1
+
   def toCamel(snack: String): String = {
     val terms = snack.toLowerCase().split("_")
     terms.reduceLeft(
@@ -46,7 +48,11 @@ object Utils {
   def object2Array(obj: Any): Array[String] = {
     obj.getClass.getDeclaredFields.map(x => {
       x.setAccessible(true)
-      x.get(obj).toString
+      val value = x.get(obj)
+      if ((x.getType == classOf[Int])&&(value.asInstanceOf[Int] == Utils.NULL_ID)) {
+        Utils.EmptyString
+      }
+      else x.get(obj).toString
     })
   }
 
