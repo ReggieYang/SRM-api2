@@ -15,6 +15,8 @@ class UserService(conn: Connection) {
   val userDao = new UserDao(conn)
 
   def addUser(user: Array[String]) = {
+    val newUserName = user.head
+    val isUserExist = userDao.getUser(newUserName) == null
     DaoFactory.save(conn, userDao.userTable, user, userDao.userColumns)
   }
 

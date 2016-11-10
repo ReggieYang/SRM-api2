@@ -81,9 +81,9 @@ AFTER DELETE ON `project`
 -- ----------------------------
 -- Records of project
 -- ----------------------------
-INSERT INTO `project` VALUES ('123', 'nasame2', 'zzz');
-INSERT INTO `project` VALUES ('124', 'name', 'kaimyang');
-INSERT INTO `project` VALUES ('125', 'xx', 'kaimyang');
+INSERT INTO `project` VALUES ('123', 'nasame2udf', 'zzz');
+INSERT INTO `project` VALUES ('124', 'nameyangkaimao', 'kaimyang');
+INSERT INTO `project` VALUES ('125', 'xxalskjd', 'kaimyang');
 INSERT INTO `project` VALUES ('126', 'NBA project', 'kaimyang');
 
 -- ----------------------------
@@ -106,10 +106,10 @@ CREATE TABLE `risk` (
 -- ----------------------------
 -- Records of risk
 -- ----------------------------
-INSERT INTO `risk` VALUES ('2', 'asd', 'x', 'x', 'x', 'x', 'x', 'x', '23');
-INSERT INTO `risk` VALUES ('3', 'nasame2', 'x', 'x', 'x', 'x', 'x', 'x', '123');
-INSERT INTO `risk` VALUES ('4', '5', 'x', 'x', 'x', 'x', 'x', 'x', '123');
-INSERT INTO `risk` VALUES ('5', 'nasame2', 'x', 'x', 'x', 'x', 'x', 'x', '123');
+INSERT INTO `risk` VALUES ('2', 'assdad', 'x', 'x', 'x', 'x', 'x', 'x', '23');
+INSERT INTO `risk` VALUES ('3', 'nasaddme2', 'x', 'x', 'x', 'x', 'x', 'x', '123');
+INSERT INTO `risk` VALUES ('4', '5zzz', 'x', 'x', 'x', 'x', 'x', 'x', '123');
+INSERT INTO `risk` VALUES ('5', 'nasasssme2', 'x', 'x', 'x', 'x', 'x', 'x', '123');
 
 -- ----------------------------
 -- Table structure for user
@@ -126,7 +126,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('kaimyang', 'elder Wang', '123456', 'eBay');
-INSERT INTO `user` VALUES ('sasa', 'sa', 'asa', 'eBay');
-INSERT INTO `user` VALUES ('ss', 's', 's', 's');
+INSERT INTO `user` VALUES ('gaowei', 'sa', 'asa', 'eBay');
+INSERT INTO `user` VALUES ('zhouweilu', 's', 's', 's');
 
 
