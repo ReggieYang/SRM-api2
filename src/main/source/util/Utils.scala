@@ -1,6 +1,8 @@
 package util
 
 import java.io.StringWriter
+import java.text.SimpleDateFormat
+import java.util.Calendar
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
@@ -49,7 +51,7 @@ object Utils {
     obj.getClass.getDeclaredFields.map(x => {
       x.setAccessible(true)
       val value = x.get(obj)
-      if ((x.getType == classOf[Int])&&(value.asInstanceOf[Int] == Utils.NULL_ID)) {
+      if ((x.getType == classOf[Int]) && (value.asInstanceOf[Int] == Utils.NULL_ID)) {
         Utils.EmptyString
       }
       else x.get(obj).toString
@@ -60,5 +62,7 @@ object Utils {
 
 
   def deserializeJsonArray(json: String): Array[String] = mapper.readValue(json, classOf[Array[String]])
+
+  def getCurrentTime: String = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime)
 
 }
