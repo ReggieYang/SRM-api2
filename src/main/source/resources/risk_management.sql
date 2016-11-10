@@ -34,7 +34,7 @@ CREATE TABLE `followup` (
 -- ----------------------------
 -- Records of followup
 -- ----------------------------
-INSERT INTO `followup` VALUES ('1', 'a', '2016-06-06 00:00:00', '123');
+INSERT INTO `followup` VALUES ('1', 'good', '2016-06-06 00:00:00', '123');
 
 
 -- ----------------------------
@@ -51,9 +51,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('kaimyang', 'elder Wang', '123456', 'eBay');
-INSERT INTO `user` VALUES ('gaowei', 'sa', 'asa', 'eBay');
-INSERT INTO `user` VALUES ('zhouweilu', 's', 's', 's');
+INSERT INTO `user` VALUES ('kaimyang', 'PM', '123456', 'eBay');
+INSERT INTO `user` VALUES ('gaowei', 'Developer', 'asa', 'eBay');
+INSERT INTO `user` VALUES ('zhouweilu', 'PM', 's', 'TaoBao');
 
 -- ----------------------------
 -- Table structure for project_developer
@@ -67,7 +67,7 @@ CREATE TABLE `project_developer` (
 -- ----------------------------
 -- Records of project_developer
 -- ----------------------------
-INSERT INTO `project_developer` VALUES ('123', 'kai');
+
 -- ----------------------------
 -- Table structure for project
 -- ----------------------------
@@ -99,10 +99,10 @@ AFTER DELETE ON `project`
 -- ----------------------------
 -- Records of project
 -- ----------------------------
-INSERT INTO `project` VALUES ('123', 'nasame2udf', 'zzz');
-INSERT INTO `project` VALUES ('124', 'nameyangkaimao', 'kaimyang');
-INSERT INTO `project` VALUES ('125', 'xxalskjd', 'kaimyang');
-INSERT INTO `project` VALUES ('126', 'NBA project', 'kaimyang');
+INSERT INTO `project` VALUES ('123', 'SRM', 'zhouweilu');
+INSERT INTO `project` VALUES ('124', 'SuperCRM', 'kaimyang');
+INSERT INTO `project` VALUES ('125', 'Dessert House', 'kaimyang');
+INSERT INTO `project` VALUES ('126', 'NBA project', 'gaowei');
 
 -- ----------------------------
 -- Table structure for risk
@@ -124,10 +124,10 @@ CREATE TABLE `risk` (
 -- ----------------------------
 -- Records of risk
 -- ----------------------------
-INSERT INTO `risk` VALUES ('2', 'assdad', 'x', 'x', 'x', 'x', 'x', 'x', '23');
-INSERT INTO `risk` VALUES ('3', 'nasaddme2', 'x', 'x', 'x', 'x', 'x', 'x', '123');
-INSERT INTO `risk` VALUES ('4', '5zzz', 'x', 'x', 'x', 'x', 'x', 'x', '123');
-INSERT INTO `risk` VALUES ('5', 'nasasssme2', 'x', 'x', 'x', 'x', 'x', 'x', '123');
+INSERT INTO `risk` VALUES ('2', 'High', 'High', 'x', 'x', 'x', 'x', 'Quality Risk', '124');
+INSERT INTO `risk` VALUES ('3', 'High', 'High', 'x', 'x', 'x', 'x', 'Quality Risk', '123');
+INSERT INTO `risk` VALUES ('4', 'Low', 'Low', 'x', 'x', 'x', 'x', 'Technical Risk', '123');
+INSERT INTO `risk` VALUES ('5', 'Medium', 'Low', 'x', 'x', 'x', 'x', 'Legal Risk', '123');
 
 
 
