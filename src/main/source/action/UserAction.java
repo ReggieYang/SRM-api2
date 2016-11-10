@@ -36,8 +36,8 @@ public class UserAction extends ActionSupport{
     public void verifyUser(){
         ActionContext context = ActionContext.getContext();
         HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setUserName(request.getParameter("userName"));
-        setPassword(request.getParameter("password"));
+//        setUserName(request.getParameter("userName"));
+//        setPassword(request.getParameter("password"));
         setResult(us.verifyUser(getUserName(),getPassword()));
         ServletUtils.sendResponse(result);
     }
