@@ -9,11 +9,10 @@ import model.{Project, User}
   * Created by ReggieYang on 2016/11/6.
   */
 class ProjectService(conn: Connection) {
-
   val projectDao = new ProjectDao(conn)
 
   def addDeveloper(developerName: String, projectId: String) = {
-    DaoFactory.save(conn, projectDao.pdTable, Array(projectId, developerName), projectDao.projectColumns)
+    DaoFactory.save(conn, projectDao.pdTable, Array(projectId, developerName), projectDao.pdColumns)
   }
 
   def deleteDeveloper(developerName: String, projectId: String) = {
@@ -35,8 +34,9 @@ class ProjectService(conn: Connection) {
   }
 
   def modifyProject(project: Array[String]) = {
-    DaoFactory.update(conn, projectDao.projectTable, projectDao.projectColumns.drop(1), project.drop(1), projectDao.projectTypes.drop(1),
-      projectDao.projectColumns.take(1), project.take(1), projectDao.projectTypes.take(1))
+//    DaoFactory.update(conn, projectDao.projectTable, projectDao.projectColumns.drop(1), project.drop(1), projectDao.projectTypes.drop(1),
+//      projectDao.projectColumns.take(1), project.take(1), projectDao.projectTypes.take(1))
+    DaoFactory.updateByPK(conn, projectDao.projectTable, projectDao.projectColumns, project, projectDao.projectTypes)
   }
 
   def allProject(userName: String): Array[Project] = {
