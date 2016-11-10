@@ -2,11 +2,8 @@
 
 #Usage
 1. Clone the project, waiting for maven dependencies downloaded.
-2. Execute the SQL file **src\main\resources\risk_management.sql**.
-3. Methods are in package **service**.
-4. Run 'mvn clean scala:compile compile package' in cmd.
-5. Cd into the directory of the project, copy target/SRM2.war into your tomcat/webapps.
-6. Change the password of root in mysql to 'root'.
+2. Use the network in nju-software.
+3. https://192.168.47.29:11111/SRM2/API
 
 #SRM-api
 Prefix: https://ip:port/SRM2/
