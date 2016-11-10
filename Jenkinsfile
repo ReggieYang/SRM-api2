@@ -1,6 +1,6 @@
 node {
     stage('scm'){
-        git 'https://github.com/ReggieYang/Demo2.git'
+        git 'https://github.com/ReggieYang/SRM-api2.git'
     }
 
     stage('qa') {
