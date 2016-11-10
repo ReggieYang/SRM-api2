@@ -10,7 +10,6 @@
 6. Change the password of root in mysql to 'root'.
 
 
-
 #SRM-api
 ##
 
