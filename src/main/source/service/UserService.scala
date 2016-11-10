@@ -33,6 +33,8 @@ class UserService(conn: Connection) {
 
   }
 
+  def getPosition(userName: String): String = userDao.getUser(userName).position
+
   def getColleague(company: String): Array[User] = {
     userDao.getColleague(company)
   }
