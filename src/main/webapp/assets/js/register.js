@@ -1,10 +1,12 @@
 $(document).ready(function() {
-    $('#loginForm').submit(function() {
+    $('#registerForm').submit(function() {
         console.log('submit');
-        $.post('./JSON/log',
+        $.post('./JSON/register',
         {
-            userName: $('#name').val(),
-            password: $('#password').val()
+            newUser_userName: $('#name').val(),
+            newUser_password: $('#password').val(),
+            newUser_company: $('#corp').val(),
+            newUser_position: $('#role').val()
         }, function(data) {
             console.log(data);
             if (data.result == 'success') {

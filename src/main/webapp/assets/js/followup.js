@@ -15,6 +15,17 @@ $(document).ready(function() {
 
     $('#followupForm').submit(function() {
         console.log('submit');
+        $.post('./JSON/addFollowup',
+        {
+            'newFollowup_status': $('#status').val()
+        }, function(data) {
+            console.log(data);
+            if (data.result == 'success') {
+                window.location.href='/followup';
+            } else {
+                alert(data.message);
+            }
+        });
         return false;
     });
 })

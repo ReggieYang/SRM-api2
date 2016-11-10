@@ -1,3 +1,6 @@
+<%@ page isELIgnored="false" language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +15,33 @@
 
 </head>
 <body style="margin: 2em;">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="project">RisKick</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><s:property value="user" /> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="project">Home</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login">Sign out</a></li>
+                    </ul>
+                </li>
+			</ul>
+		</div>
+	</div>
+  </nav>
 
-  <div class="container">
+  <div class="container" style="padding-top:20px;">
     <div class="row">
         <h3>Followups</h3>
         <div class="table-responsive">
@@ -22,11 +50,13 @@
                     <th>#</th><th>Date</th><th>Status</th>
                 </tr></thead>
                 <tbody>
-                <tr *ngFor="let followup of followups; let i = index">
-                    <th>{{i+1}}</th>
-                    <td>{{followup.followupDate}}</td>
-                    <td>{{followup.status}}</td>
-                </tr>
+                <s:iterator id="followup" value="followups" status="st">
+                    <tr>
+                        <th><s:property value="#st.index+1" /></th>
+                        <td><s:property value="#followup.followupDate" /></td>
+                        <td><s:property value="#followup.status" /></td>
+                    </tr>
+                </s:iterator>
                 </tbody>
             </table>
         </div>

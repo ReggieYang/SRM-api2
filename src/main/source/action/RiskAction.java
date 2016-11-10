@@ -3,68 +3,75 @@ package action;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.DBConnection;
+import model.Project;
 import model.Risk;
 import org.apache.struts2.ServletActionContext;
+import service.ProjectService;
 import service.RiskService;
 import util.ServletUtils;
 import util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Created by soleil on 16/11/9.
  */
-public class RiskAction extends ActionSupport {
-    private static final String SUCCESS = "success";
-    private String riskList;
+public class RiskAction extends BaseAction {
+    private String user;
     private String projectId;
-    private String risk;
-    private String riskId;
+    private Risk[] risks;
+    private String[] participants;
+
+    private String newRisk_description;
+    private String newRisk_riskType;
+    private String newRisk_possibility;
+    private String newRisk_impact;
+    private String newRisk_threshold;
+    private String newRisk_followerName;
+
+    private Map<String, Object> jsonResult;
 
     //get database connection
     Connection conn = DBConnection.getConnection();
     //instantiate a service with the connection
     RiskService rs = new RiskService(conn);
+    ProjectService ps = new ProjectService(conn);
 
-
-    //显示所有风险
-    public void allRisk() throws Exception {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setProjectId(request.getParameter("projectId"));
-        setRiskList(Utils.serializeJson(rs.allRisk(getProjectId())));
-        ServletUtils.sendResponse(riskList);
-//        setRiskList(Utils.serializeJson(rs.allRisk("123")));
-//        ProjectAction test = new ProjectAction();
-//        test.print(riskList);
+    public String toRisk() {
+        user = getCurrentUser();
+        if (user.equals("")) {
+            return ERROR;
+        } else {
+            setRisks(rs.allRisk(getCurrentProjectId()));
+            setParticipants(ps.allProjectDeveloper(getCurrentProjectId()));
+            return SUCCESS;
+        }
     }
 
-    //增加风险
-    public void addRisk() {
-        rs.addRisk(Utils.deserializeJson2Array(getRisk(), Risk.class));
+    public String allRisk() {
+        jsonResult = new HashMap<String, Object>();
+        session.put("projectId", projectId);
+        jsonResult.put("result", "success");
+        return SUCCESS;
     }
 
-    //删除风险
-    public void delRisk() {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setRiskId(request.getParameter("riskId"));
-        rs.deleteRisk(getRiskId());
+    public String addRisk() {
+        jsonResult = new HashMap<String, Object>();
+        Risk newRisk = new Risk(Utils.NULL_ID(), newRisk_possibility, newRisk_impact, newRisk_threshold, getCurrentUser(), newRisk_followerName, newRisk_description, newRisk_riskType, Integer.parseInt(getCurrentProjectId()));
+        rs.addRisk(Utils.object2Array(newRisk));
+        jsonResult.put("result", "success");
+        return SUCCESS;
     }
 
-    //修改风险
-    public void modifyRisk() {
-        rs.modifyRisk(Utils.deserializeJson2Array(getRisk(), Risk.class));
+    public String getUser() {
+        return user;
     }
 
-
-    public String getRiskList() {
-        return riskList;
-    }
-
-    public void setRiskList(String riskList) {
-        this.riskList = riskList;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getProjectId() {
@@ -75,19 +82,75 @@ public class RiskAction extends ActionSupport {
         this.projectId = projectId;
     }
 
-    public String getRisk() {
-        return risk;
+    public Risk[] getRisks() {
+        return risks;
     }
 
-    public void setRisk(String risk) {
-        this.risk = risk;
+    public void setRisks(Risk[] risks) {
+        this.risks = risks;
     }
 
-    public String getRiskId() {
-        return riskId;
+    public Map<String, Object> getJsonResult() {
+        return jsonResult;
     }
 
-    public void setRiskId(String riskId) {
-        this.riskId = riskId;
+    public void setJsonResult(Map<String, Object> jsonResult) {
+        this.jsonResult = jsonResult;
+    }
+
+    public String getNewRisk_description() {
+        return newRisk_description;
+    }
+
+    public void setNewRisk_description(String newRisk_description) {
+        this.newRisk_description = newRisk_description;
+    }
+
+    public String getNewRisk_riskType() {
+        return newRisk_riskType;
+    }
+
+    public void setNewRisk_riskType(String newRisk_riskType) {
+        this.newRisk_riskType = newRisk_riskType;
+    }
+
+    public String getNewRisk_possibility() {
+        return newRisk_possibility;
+    }
+
+    public void setNewRisk_possibility(String newRisk_possibility) {
+        this.newRisk_possibility = newRisk_possibility;
+    }
+
+    public String getNewRisk_impact() {
+        return newRisk_impact;
+    }
+
+    public void setNewRisk_impact(String newRisk_impact) {
+        this.newRisk_impact = newRisk_impact;
+    }
+
+    public String getNewRisk_threshold() {
+        return newRisk_threshold;
+    }
+
+    public void setNewRisk_threshold(String newRisk_threshold) {
+        this.newRisk_threshold = newRisk_threshold;
+    }
+
+    public String getNewRisk_followerName() {
+        return newRisk_followerName;
+    }
+
+    public void setNewRisk_followerName(String newRisk_followerName) {
+        this.newRisk_followerName = newRisk_followerName;
+    }
+
+    public String[] getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(String[] participants) {
+        this.participants = participants;
     }
 }
