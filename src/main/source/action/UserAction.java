@@ -10,13 +10,12 @@ import util.ServletUtils;
 import util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.sql.Connection;
 
 /**
  * Created by soleil on 16/11/9.
  */
-public class UserAction extends ActionSupport {
+public class UserAction extends ActionSupport{
     private String userName;
     private String company;
     private String user;
@@ -33,25 +32,18 @@ public class UserAction extends ActionSupport {
     public void addUser() {
         us.addUser(Utils.deserializeJson2Array(getUser(), User.class));
     }
-
     //验证用户
-    public void verifyUser() {
+    public void verifyUser(){
         ActionContext context = ActionContext.getContext();
         HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        String x = null;
-        try {
-            x = request.getInputStream().toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         setUserName(request.getParameter("userName"));
         setPassword(request.getParameter("password"));
-        setResult(us.verifyUser(getUserName(), getPassword()));
-        ServletUtils.sendResponse(result + x);
+        setResult(us.verifyUser(getUserName(),getPassword()));
+        ServletUtils.sendResponse(result);
     }
 
     //获取同事列表
-    public void getColleague() throws Exception {
+    public void getColleague() throws Exception{
         ActionContext context = ActionContext.getContext();
         HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
         setCompany(request.getParameter("company"));
@@ -102,6 +94,7 @@ public class UserAction extends ActionSupport {
     public void setResult(String result) {
         this.result = result;
     }
+
 
 
     public String getColleagueList() {
