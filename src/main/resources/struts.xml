@@ -47,7 +47,7 @@
 
         <!--RiskAction-->
         <!--显示所有风险-->
-        <action name="allRisk" class="action.RiskAction" method="allRisk">
+        <action name="getRisk" class="action.RiskAction" method="allRisk">
         </action>
         <!--增加风险-->
         <action name="addRisk" class="action.RiskAction" method="addRisk">

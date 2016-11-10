@@ -1,6 +1,5 @@
 #Software Risk Management
 
-
 #Usage
 1. Clone the project, waiting for maven dependencies downloaded.
 2. Execute the SQL file **src\main\resources\risk_management.sql**.
@@ -9,10 +8,35 @@
 5. Cd into the directory of the project, copy target/SRM2.war into your tomcat/webapps.
 6. Change the password of root in mysql to 'root'.
 
-
 #SRM-api
-##
+Prefix: https://ip:port/SRM2/
+##Project
+    getProject: userName
+    getDeveloper: projectId
+    addDeveloper: projectId, developerName
+    delDeveloper: userName
+    addProject: Project(projectId, projectName, creatorName)
+    delProject: projectId
+    modifyProject: Project(projectId, projectName, creatorName)
 
+##User
+    addUser: User(userName, password, position, company)
+    verifyUser: userName, password
+    getColleague: company
+    
+##Risk
+    getRisk: projectId
+    addRisk: Risk(riskId, possibility, impact, threshold, 
+    creatorName, followerName, description,riskType, projectId)
+    delRisk: riskId
+    modifyRisk: Risk(riskId, possibility, impact, threshold, 
+    creatorName, followerName, description,riskType, projectId)
+
+##Followup
+    getFollowup: riskId
+    addFollowup: Followup(followupId, status, followupDate, riskId)
+    modifyFollowup: Followup(followupId, status, followupDate, riskId)
+    delFollowup: followupId
 
 #需求分析（第一阶段）
 
