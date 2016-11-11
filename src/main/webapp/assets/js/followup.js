@@ -21,7 +21,7 @@ $(document).ready(function() {
         }, function(data) {
             console.log(data);
             if (data.result == 'success') {
-                window.location.href='/followup';
+                window.location.href='./followup';
             } else {
                 alert(data.message);
             }

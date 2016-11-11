@@ -10,7 +10,7 @@ $(document).ready(function() {
         }, function(data) {
             console.log(data);
             if (data.result == 'success') {
-                window.location.href='/project';
+                window.location.href='./project';
             } else {
                 alert(data.message);
             }

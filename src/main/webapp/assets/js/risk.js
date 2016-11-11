@@ -26,7 +26,7 @@ $(document).ready(function() {
         }, function(data) {
             console.log(data);
             if (data.result == 'success') {
-                window.location.href='/risk';
+                window.location.href='./risk';
             } else {
                 alert(data.message);
             }
@@ -42,7 +42,7 @@ $(document).ready(function() {
         }, function(data) {
             console.log(data);
             if (data.result == 'success') {
-                window.location.href='/followup';
+                window.location.href='./followup';
             } else {
                 alert(data.message);
             }
