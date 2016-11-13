@@ -48,4 +48,19 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.deleteRisk').click(function() {
+        let riskId = $(this).attr('risk-id');
+        $.post('./JSON/deleteRisk',
+        {
+            'risk.riskId': riskId
+        }, function(data) {
+            console.log(data);
+            if (data.result == 'success') {
+                window.location.href='./risk';
+            } else {
+                alert(data.message);
+            }
+        });
+    });
 })

@@ -56,7 +56,12 @@
                         <th><s:property value="#st.index+1" /></th>
                         <td><s:property value="#project.projectName" /></td>
                         <td><s:property value="#project.creatorName" /></td>
-                        <td><a project-id='<s:property value="#project.projectId" />' class="riskLink" style="cursor: pointer;">risks</a></td>
+                        <td><a project-id='<s:property value="#project.projectId" />' class="riskLink" style="cursor: pointer;">risks</a>
+                        <s:if test="%{position == 'PM'}">
+                        <div style="display: inline; float: right;">
+                            <!--<button project-id='<s:property value="#project.projectId" />' class="modifyProject btn btn-primary btn-xs" style="cursor: pointer;padding-top: 3px;" data-toggle="modal" data-target="#projectInfo"><i class="glyphicon glyphicon-pencil"></i></button>-->
+                            <button project-id='<s:property value="#project.projectId" />' class="deleteProject btn btn-danger btn-xs" style="cursor: pointer;padding-top: 3px;margin-left: 10px;"><i class="glyphicon glyphicon-remove"></i></button>
+                        </div></s:if></td>
                     </tr>
                 </s:iterator>
                 </tbody>
@@ -80,7 +85,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary"> Add </button>
+                            <button type="submit" class="btn btn-success"> Add </button>
                             </div>
                         </div>
                     </form>
@@ -92,6 +97,32 @@
             <h4>Only PM can add a project</h4>
         </s:else>
         </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="projectInfo" tabindex="-1" role="dialog" aria-labelledby="projectInfoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="projectInfoLabel">Modify Project</h4>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal" id="modifyProjectForm">
+              <div class="form-group">
+                  <label for="projectName" class="col-sm-2 control-label">Project name</label>
+                  <div class="col-sm-10">
+                      <input type="text" class="form-control" required name="projectName">
+                  </div>
+              </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Modify</button>
+      </div>
+      </div>
+  </div>
   </div>
 
 <script src="assets/dist/jquery/jquery-2.2.1.min.js"></script>

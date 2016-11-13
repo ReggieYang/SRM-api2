@@ -27,6 +27,8 @@ public class ProjectAction extends BaseAction {
     private Project[] projects;
     private String position;
 
+    private Project project = new Project(Utils.NULL_ID(), "", "");
+
     private String newProject_projectName;
 
     private Map<String, Object> jsonResult;
@@ -52,6 +54,13 @@ public class ProjectAction extends BaseAction {
         jsonResult = new HashMap<String, Object>();
         Project newProject = new Project(Utils.NULL_ID(), newProject_projectName, getCurrentUser());
         ps.addProject(Utils.object2Array(newProject));
+        jsonResult.put("result", "success");
+        return SUCCESS;
+    }
+
+    public String deleteProject() {
+        jsonResult = new HashMap<String, Object>();
+        ps.deleteProject(Integer.toString(project.getProjectId()));
         jsonResult.put("result", "success");
         return SUCCESS;
     }
@@ -94,5 +103,13 @@ public class ProjectAction extends BaseAction {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 }

@@ -24,6 +24,8 @@ public class FollowupAction extends BaseAction {
     private String riskId;
     private Followup[] followups;
 
+    private Followup followup = new Followup(Utils.NULL_ID(), "", "", Utils.NULL_ID());
+
     private String newFollowup_status;
 
     private Map<String, Object> jsonResult;
@@ -54,6 +56,13 @@ public class FollowupAction extends BaseAction {
         jsonResult = new HashMap<String, Object>();
         Followup newFollowup = new Followup(Utils.NULL_ID(), newFollowup_status, Utils.getCurrentTime(), Integer.parseInt(getCurrentRiskId()));
         fs.addFollowup(Utils.object2Array(newFollowup));
+        jsonResult.put("result", "success");
+        return SUCCESS;
+    }
+
+    public String deleteFollowup() {
+        jsonResult = new HashMap<String, Object>();
+        fs.deleteFollowup(Integer.toString(followup.getFollowupId()));
         jsonResult.put("result", "success");
         return SUCCESS;
     }
@@ -96,5 +105,13 @@ public class FollowupAction extends BaseAction {
 
     public void setNewFollowup_status(String newFollowup_status) {
         this.newFollowup_status = newFollowup_status;
+    }
+
+    public Followup getFollowup() {
+        return followup;
+    }
+
+    public void setFollowup(Followup followup) {
+        this.followup = followup;
     }
 }

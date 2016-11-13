@@ -32,6 +32,8 @@ public class RiskAction extends BaseAction {
     private String newRisk_threshold;
     private String newRisk_followerName;
 
+    private Risk risk = new Risk(Utils.NULL_ID(), "", "", "", "", "", "", "", Utils.NULL_ID());
+
     private Map<String, Object> jsonResult;
 
     //get database connection
@@ -54,6 +56,13 @@ public class RiskAction extends BaseAction {
     public String allRisk() {
         jsonResult = new HashMap<String, Object>();
         session.put("projectId", projectId);
+        jsonResult.put("result", "success");
+        return SUCCESS;
+    }
+
+    public String deleteRisk() {
+        jsonResult = new HashMap<String, Object>();
+        rs.deleteRisk(Integer.toString(risk.getRiskId()));
         jsonResult.put("result", "success");
         return SUCCESS;
     }
@@ -152,5 +161,13 @@ public class RiskAction extends BaseAction {
 
     public void setParticipants(String[] participants) {
         this.participants = participants;
+    }
+
+    public Risk getRisk() {
+        return risk;
+    }
+
+    public void setRisk(Risk risk) {
+        this.risk = risk;
     }
 }

@@ -44,4 +44,19 @@ $(document).ready(function() {
         });
     });
 
+    $('.deleteProject').click(function() {
+        let projectId = $(this).attr('project-id');
+        $.post('./JSON/deleteProject',
+        {
+            'project.projectId': projectId
+        }, function(data) {
+            console.log(data);
+            if (data.result == 'success') {
+                window.location.href='./project';
+            } else {
+                alert(data.message);
+            }
+        });
+    });
+
 })

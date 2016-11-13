@@ -61,7 +61,11 @@
                         <td><s:property value="#risk.threshold" /></td>
                         <td><s:property value="#risk.creatorName" /></td>
                         <td><s:property value="#risk.followerName" /></td>
-                        <td><a risk-id='<s:property value="#risk.riskId" />' class="followupLink" style="cursor: pointer;">followups</a></td>
+                        <td><a risk-id='<s:property value="#risk.riskId" />' class="followupLink" style="cursor: pointer;">followups</a>
+                        <div style="display: inline; float: right;">
+                            <!--<button risk-id='<s:property value="#risk.riskId" />' class="modifyRisk btn btn-xs btn-primary" style="cursor: pointer;padding-top: 3px;"  data-toggle="modal" data-target="#riskInfo"><i class="glyphicon glyphicon-pencil"></i></button>-->
+                            <button risk-id='<s:property value="#risk.riskId" />' class="deleteRisk btn btn-xs btn-danger" style="cursor: pointer;padding-top: 3px;"><i class="glyphicon glyphicon-remove"></i></button>
+                        </div></td>
                     </tr>
                 </s:iterator>
                 </tbody>
@@ -132,7 +136,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary"> Add </button>
+                            <button type="submit" class="btn btn-success"> Add </button>
                             </div>
                         </div>
                     </form>
@@ -140,6 +144,25 @@
             </div>
         </div>
     </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="riskInfo" tabindex="-1" role="dialog" aria-labelledby="riskInfoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+      <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="riskInfoLabel">Modify Project</h4>
+      </div>
+      <div class="modal-body">
+          ...
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Modify</button>
+      </div>
+      </div>
+  </div>
   </div>
 
 <script src="assets/dist/jquery/jquery-2.2.1.min.js"></script>
