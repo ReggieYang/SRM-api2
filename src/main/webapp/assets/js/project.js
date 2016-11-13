@@ -15,6 +15,33 @@ $(document).ready(function() {
 
     $('#projectForm').submit(function() {
         console.log('submit');
+        $.post('./JSON/addProject',
+        {
+            'newProject_projectName': $('#projectName').val()
+        }, function(data) {
+            console.log(data);
+            if (data.result == 'success') {
+                window.location.href='./project';
+            } else {
+                alert(data.message);
+            }
+        });
         return false;
     });
+
+    $('.riskLink').click(function() {
+        let projectId = $(this).attr('project-id');
+        $.post('./JSON/allRisk',
+        {
+            projectId: projectId
+        }, function(data) {
+            console.log(data);
+            if (data.result == 'success') {
+                window.location.href='./risk';
+            } else {
+                alert(data.message);
+            }
+        });
+    });
+
 })

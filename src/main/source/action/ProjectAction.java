@@ -1,5 +1,6 @@
 package action;
 
+import bean.ResultMessage;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import dao.DBConnection;
@@ -7,150 +8,91 @@ import model.Project;
 import model.User;
 import org.apache.struts2.ServletActionContext;
 import service.ProjectService;
+import service.UserService;
 import util.ServletUtils;
 import util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by soleil on 16/11/9.
  */
-public class ProjectAction extends ActionSupport {
-    private String projectId;
-    private String projectList;
-    private String developerList;
-    private String developerName;
-    private String project;//json格式项目
-    private String userJson;
-    private String UserName;
+public class ProjectAction extends BaseAction {
+    private String user;
+    private Project[] projects;
+    private String position;
+
+    private String newProject_projectName;
+
+    private Map<String, Object> jsonResult;
 
     //get database connection
     Connection conn = DBConnection.getConnection();
     //instantiate a service with the connection
     ProjectService ps = new ProjectService(conn);
+    UserService us = new UserService(conn);
 
-
-    //获取该用户的全部项目信息
-    public void getProjectByDeveloper() throws Exception {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setUserName(request.getParameter("userName"));
-        setProjectList(Utils.serializeJson(ps.allProject(getUserName())));
-        ServletUtils.sendResponse(projectList);
+    public String toProject() {
+        user = getCurrentUser();
+        if (user.equals("")) {
+            return ERROR;
+        } else {
+            setProjects(ps.allProject(user));
+            setPosition(us.getPosition(user));
+            return SUCCESS;
+        }
     }
 
-    //获取一个项目的全部开发者
-    public void getAllDeveloper() throws Exception {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setProjectId(request.getParameter("projectId"));
-        setDeveloperList(Utils.serializeJson(ps.allProjectDeveloper(getProjectId())));
-//        setDeveloperList(Utils.serializeJson(ps.allProjectDeveloper("123")));
-//        print("全部开发者信息"+developerList);
-        ServletUtils.sendResponse(developerList);
+    public String addProject() {
+        jsonResult = new HashMap<String, Object>();
+        Project newProject = new Project(Utils.NULL_ID(), newProject_projectName, getCurrentUser());
+        ps.addProject(Utils.object2Array(newProject));
+        jsonResult.put("result", "success");
+        return SUCCESS;
     }
 
-    //测试方法
-    public void print(String test) throws Exception {
-        ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
-        PrintWriter out = ServletActionContext.getResponse().getWriter();
-        out.print(test);
-        out.flush();
-        out.close();
+    public String getUser() {
+        return user;
     }
 
-    //添加开发者
-    public void addDeveloper() {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setDeveloperName(request.getParameter("developerName"));
-        setProjectId(request.getParameter("projectId"));
-        ps.addDeveloper(developerName, projectId);
+    public void setUser(String user) {
+        this.user = user;
     }
 
-    //删除开发者
-    public void delDeveloper() {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setDeveloperName(request.getParameter("username"));
-        setProjectId(request.getParameter("projectId"));
-        ps.deleteDeveloper(developerName, projectId);
+    public Project[] getProjects() {
+        return projects;
     }
 
-    //增加项目
-    public void addProject() {
-        ps.addProject(Utils.deserializeJson2Array(getProject(), Project.class));
+    public void setProjects(Project[] projects) {
+        this.projects = projects;
     }
 
-    //删除项目
-    public void delProject() {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setProjectId(request.getParameter("projectId"));
-        ps.deleteProject(getProjectId());
+    public String getNewProject_projectName() {
+        return newProject_projectName;
     }
 
-    //修改项目
-    public void modifyProject() {
-        ps.modifyProject(Utils.deserializeJson2Array(getProject(), Project.class));
+    public void setNewProject_projectName(String newProject_projectName) {
+        this.newProject_projectName = newProject_projectName;
     }
 
-
-    public String getProjectId() {
-        return projectId;
+    public Map<String, Object> getJsonResult() {
+        return jsonResult;
     }
 
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
+    public void setJsonResult(Map<String, Object> jsonResult) {
+        this.jsonResult = jsonResult;
     }
 
-    public String getProjectList() {
-        return projectList;
+    public String getPosition() {
+        return position;
     }
 
-    public void setProjectList(String jsonResult) {
-        this.projectList = jsonResult;
-    }
-
-    public String getDeveloperList() {
-        return developerList;
-    }
-
-    public void setDeveloperList(String developerList) {
-        this.developerList = developerList;
-    }
-
-    public String getDeveloperName() {
-        return developerName;
-    }
-
-    public void setDeveloperName(String developerName) {
-        this.developerName = developerName;
-    }
-
-    public String getProject() {
-        return project;
-    }
-
-    public void setProject(String project) {
-        this.project = project;
-    }
-
-    public String getUserJson() {
-        return userJson;
-    }
-
-    public void setUserJson(String userJson) {
-        this.userJson = userJson;
-    }
-
-    public String getUserName() {
-        return UserName;
-    }
-
-    public void setUserName(String userName) {
-        UserName = userName;
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

@@ -1,3 +1,6 @@
+<%@ page isELIgnored="false" language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +33,7 @@
                     <button type="submit" class="btn btn-primary" style="width:100%;">Sign in</button>
 
                     <div style="text-align:center;margin-top:15px;">
-                    New to RisKick? <a href="signUp"> Create an account.</a>
+                    New to RisKick? <a href="register"> Create an account.</a>
                     </div>
                 </form>
             </div>

@@ -49,8 +49,24 @@ public class BaseAction extends ActionSupport implements SessionAware,
         }
     }
 
-    public User getCurrentUser() {
-        return (User) session.get("user");
+    public String getCurrentUser() {
+        return (String) session.get("user");
+    }
+
+    public String getCurrentProjectId() {
+        return (String) session.get("projectId");
+    }
+
+    public String getCurrentRiskId() {
+        return (String) session.get("riskId");
+    }
+
+    public String toLogin() {
+        return SUCCESS;
+    }
+
+    public String toRegister() {
+        return SUCCESS;
     }
 
 }

@@ -1,3 +1,6 @@
+<%@ page isELIgnored="false" language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +15,33 @@
 
 </head>
 <body style="margin: 2em;">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="project">RisKick</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><s:property value="user" /> <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="project">Home</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login">Sign out</a></li>
+                    </ul>
+                </li>
+			</ul>
+		</div>
+	</div>
+  </nav>
 
-  <div class="container">
+  <div class="container" style="padding-top:20px;">
     <div class="row">
         <h3>Risks</h3>
         <div class="table-responsive">
@@ -23,17 +51,19 @@
                     <th>Creator</th><th>Follower</th><th></th>
                 </tr></thead>
                 <tbody>
-                <tr *ngFor="let risk of risks; let i = index">
-                    <th>{{i+1}}</th>
-                    <td>{{risk.description}}</td>
-                    <td>{{risk.riskType}}</td>
-                    <td>{{risk.possibility}}</td>
-                    <td>{{risk.impact}}</td>
-                    <td>{{risk.threshold}}</td>
-                    <td>{{risk.creatorName}}</td>
-                    <td>{{risk.followerName}}</td>
-                    <td><a href="#">followups</a></td>
-                </tr>
+                <s:iterator id="risk" value="risks" status="st">
+                    <tr>
+                        <th><s:property value="#st.index+1" /></th>
+                        <td><s:property value="#risk.description" /></td>
+                        <td><s:property value="#risk.riskType" /></td>
+                        <td><s:property value="#risk.possibility" /></td>
+                        <td><s:property value="#risk.impact" /></td>
+                        <td><s:property value="#risk.threshold" /></td>
+                        <td><s:property value="#risk.creatorName" /></td>
+                        <td><s:property value="#risk.followerName" /></td>
+                        <td><a risk-id='<s:property value="#risk.riskId" />' class="followupLink" style="cursor: pointer;">followups</a></td>
+                    </tr>
+                </s:iterator>
                 </tbody>
             </table>
         </div>
@@ -93,7 +123,11 @@
                         <div class="form-group">
                             <label for="followerName" class="col-sm-2 control-label">Follower</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="followerName" name="followerName">
+                                <select class="form-control" id="followerName" name="followerName">
+                                    <s:iterator id="participant" value="participants" status="st">
+                                        <option value='<s:property value="#participant" />'><s:property value="#participant" /></option>
+                                    </s:iterator>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

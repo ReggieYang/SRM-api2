@@ -13,64 +13,57 @@ import util.Utils;
 import javax.servlet.http.HttpServletRequest;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by soleil on 16/11/9.
  */
-public class FollowupAction extends ActionSupport {
-    private String followupList;
+public class FollowupAction extends BaseAction {
+    private String user;
     private String riskId;
-    private String followup;
-    private String followupId;
+    private Followup[] followups;
+
+    private String newFollowup_status;
+
+    private Map<String, Object> jsonResult;
 
     //get database connection
     Connection conn = DBConnection.getConnection();
     //instantiate a service with the connection
     FollowupService fs = new FollowupService(conn);
 
-    //增加跟踪者
-    public void addFollowup() {
-        fs.addFollowup(Utils.deserializeJson2Array(getFollowup(), Followup.class));
+    public String toFollowup() {
+        user = getCurrentUser();
+        if (user.equals("")) {
+            return ERROR;
+        } else {
+            setFollowups(fs.allFollowup(getCurrentRiskId()));
+            return SUCCESS;
+        }
     }
 
-    //删除跟踪者
-    public void delFollowup() {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setFollowupId(request.getParameter("followupId"));
-        fs.deleteFollowup(getFollowupId());
+    public String allFollowup() {
+        jsonResult = new HashMap<String, Object>();
+        session.put("riskId", riskId);
+        jsonResult.put("result", "success");
+        return SUCCESS;
     }
 
-    //修改跟踪记录
-    public void modifyFollowup() {
-        fs.modifyFollowup(Utils.deserializeJson2Array(getFollowup(), Followup.class));
+    public String addFollowup() {
+        jsonResult = new HashMap<String, Object>();
+        Followup newFollowup = new Followup(Utils.NULL_ID(), newFollowup_status, Utils.getCurrentTime(), Integer.parseInt(getCurrentRiskId()));
+        fs.addFollowup(Utils.object2Array(newFollowup));
+        jsonResult.put("result", "success");
+        return SUCCESS;
     }
 
-    //显示全部跟踪用户
-    public void allFollowup() throws Exception {
-        ActionContext context = ActionContext.getContext();
-        HttpServletRequest request = (HttpServletRequest) context.get(ServletActionContext.HTTP_REQUEST);
-        setRiskId(request.getParameter("riskId"));
-        setFollowupList(Utils.serializeJson(fs.allFollowup(getRiskId())));
-        ServletUtils.sendResponse(followupList);
-//        setFollowupList(Utils.serializeJson(fs.allFollowup("123")));
-//        print(getFollowupList());
+    public String getUser() {
+        return user;
     }
 
-    //    //测试方法
-//    public void print(String test) throws Exception{
-//        ServletActionContext.getResponse().setContentType("text/json;charset=utf-8");
-//        PrintWriter out = ServletActionContext.getResponse().getWriter();
-//        out.print(test);
-//        out.flush();
-//        out.close();
-//    }
-    public String getFollowupList() {
-        return followupList;
-    }
-
-    public void setFollowupList(String followupList) {
-        this.followupList = followupList;
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getRiskId() {
@@ -81,19 +74,27 @@ public class FollowupAction extends ActionSupport {
         this.riskId = riskId;
     }
 
-    public String getFollowup() {
-        return followup;
+    public Followup[] getFollowups() {
+        return followups;
     }
 
-    public void setFollowup(String followup) {
-        this.followup = followup;
+    public void setFollowups(Followup[] followups) {
+        this.followups = followups;
     }
 
-    public String getFollowupId() {
-        return followupId;
+    public Map<String, Object> getJsonResult() {
+        return jsonResult;
     }
 
-    public void setFollowupId(String followupId) {
-        this.followupId = followupId;
+    public void setJsonResult(Map<String, Object> jsonResult) {
+        this.jsonResult = jsonResult;
+    }
+
+    public String getNewFollowup_status() {
+        return newFollowup_status;
+    }
+
+    public void setNewFollowup_status(String newFollowup_status) {
+        this.newFollowup_status = newFollowup_status;
     }
 }
