@@ -79,30 +79,8 @@ CREATE TABLE `project` (
   PRIMARY KEY (`project_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1;
 
-CREATE TRIGGER `create_project` 
-AFTER INSERT ON `project` 
-    FOR EACH ROW BEGIN
-        INSERT INTO `project_developer` 
-		SELECT NEW.project_id, u2.user_name
-		FROM user u1, user u2
-		WHERE u1.user_name = NEW.creator_name AND u1.company = u2.company;
-    END;
 
 
-CREATE TRIGGER `delete_project` 
-AFTER DELETE ON `project` 
-    FOR EACH ROW BEGIN
-        DELETE FROM `project_developer` 
-        WHERE project_id = OLD.project_id;
-    END;
-
--- ----------------------------
--- Records of project
--- ----------------------------
-INSERT INTO `project` VALUES ('123', 'SRM', 'zhouweilu');
-INSERT INTO `project` VALUES ('124', 'SuperCRM', 'kaimyang');
-INSERT INTO `project` VALUES ('125', 'Dessert House', 'kaimyang');
-INSERT INTO `project` VALUES ('126', 'NBA project', 'gaowei');
 
 -- ----------------------------
 -- Table structure for risk
@@ -131,4 +109,37 @@ INSERT INTO `risk` VALUES ('5', 'Medium', 'Low', 'x', 'x', 'x', 'x', 'Legal Risk
 
 
 
+CREATE TRIGGER `create_project` 
+AFTER INSERT ON `project` 
+    FOR EACH ROW BEGIN
+        INSERT INTO `project_developer` 
+		SELECT NEW.project_id, u2.user_name
+		FROM user u1, user u2
+		WHERE u1.user_name = NEW.creator_name AND u1.company = u2.company;
+    END;
 
+
+CREATE TRIGGER `delete_project` 
+AFTER DELETE ON `project` 
+    FOR EACH ROW BEGIN
+        DELETE FROM `project_developer` 
+        WHERE project_id = OLD.project_id;
+        DELETE FROM `risk` 
+        WHERE project_id = OLD.project_id;
+    END;
+
+
+CREATE TRIGGER `delete_risk` 
+AFTER DELETE ON `risk` 
+    FOR EACH ROW BEGIN
+        DELETE FROM `followup` 
+        WHERE risk_id = OLD.risk_id;
+    END;
+
+-- ----------------------------
+-- Records of project
+-- ----------------------------
+INSERT INTO `project` VALUES ('123', 'SRM', 'zhouweilu');
+INSERT INTO `project` VALUES ('124', 'SuperCRM', 'kaimyang');
+INSERT INTO `project` VALUES ('125', 'Dessert House', 'kaimyang');
+INSERT INTO `project` VALUES ('126', 'NBA project', 'gaowei');
