@@ -60,4 +60,9 @@ class RiskService(conn: Connection) {
     getCertainRiskCount(sql)
   }
 
+  def importRisk(riskId: Array[String], projectId: String) = {
+    val risks = riskId.map(x => Utils.object2Array(ModelFactory.preProcessImportRisk(getRiskById(x), projectId)).drop(1))
+    DaoFactory.saveBatch(conn, riskDao.riskTable, risks, riskDao.riskColumns.drop(1))
+  }
+
 }

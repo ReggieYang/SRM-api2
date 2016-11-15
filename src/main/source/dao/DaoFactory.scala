@@ -20,6 +20,23 @@ object DaoFactory {
     cmd.close()
   }
 
+  def saveBatch(conn: Connection, tableName: String, row: Array[Array[String]], columnName: Array[String]) = {
+    val values = row.head.map(x => "?").mkString(",")
+    val columns = columnName.mkString(",")
+    val cmd = conn.prepareStatement(s"insert into $tableName($columns) values($values)")
+
+    row.foreach(r => {
+      r.zipWithIndex.foreach(x => {
+        cmd.setString(x._2 + 1, x._1)
+      })
+      cmd.addBatch()
+    })
+
+    println(cmd)
+    cmd.executeBatch()
+    cmd.close()
+  }
+
   def delete(conn: Connection, tableName: String, columns: Array[String], values: Array[String], types: Array[String]) = {
     val conditions = genConditions(columns, values, types)
 

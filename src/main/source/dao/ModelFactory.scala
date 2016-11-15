@@ -31,8 +31,8 @@ object ModelFactory {
 
   def getFieldTypes(cls: Class[_]): Array[String] = cls.getDeclaredFields.map(field => Utils.getType(field.getType.getSimpleName))
 
-  def preProcessImportRisk(risk: Risk): Risk = Risk(riskId = Utils.NULL_ID, possibility = risk.possibility, impact = risk.impact,
+  def preProcessImportRisk(risk: Risk, newProjectId: String): Risk = Risk(riskId = Utils.NULL_ID, possibility = risk.possibility, impact = risk.impact,
     threshold = risk.threshold, creatorName = risk.creatorName, followerName = risk.followerName, description = risk.description,
-    riskType = risk.riskType, status = risk.status, updateTime = Utils.getCurrentTime, parentRiskId = risk.riskId, projectId = risk.projectId)
+    riskType = risk.riskType, status = risk.status, updateTime = Utils.getCurrentTime, parentRiskId = risk.riskId, projectId = newProjectId.toInt)
 
 }
