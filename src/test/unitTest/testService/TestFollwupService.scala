@@ -13,20 +13,20 @@ class TestFollwupService extends FunSuite{
   val followupService = new FollowupService(DBConnection.getConnection)
 
   test("AddFollowup") {
-    val followup = Array("", "x", "2016-06-06", "133")
+    val followup = Array("20", "a", "b", "c", "d", "e", "f", "g", "a", "2016-09-06", "1", "23", "78")
     followupService.addFollowup(followup)
   }
 
   test("ModifyFollowup") {
-    val followup = Array("2", "xzzzz", "2016-06-06", "1233")
+    val followup = Array("20", "a", "b", "c", "d", "e", "f", "g", "a", "2016-09-22", "1", "23999", "78")
     followupService.modifyFollowup(followup)
   }
   test("AllFollowup") {
-    followupService.allFollowup("123").foreach(x => println(x))
+    followupService.allFollowup("78").foreach(x => println(x))
   }
 
   test("DeleteFollowup") {
-    followupService.deleteFollowup("1")
+//    followupService.deleteFollowup("1")
   }
 
 

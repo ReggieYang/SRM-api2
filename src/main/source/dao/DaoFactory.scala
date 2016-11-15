@@ -76,6 +76,13 @@ object DaoFactory {
     resultSetIter.toArray
   }
 
+  def executeQuery(conn: Connection, sql: String, columns: Array[String]): Array[Array[String]] = {
+    val cmd = conn.prepareStatement(sql)
+    val rs = cmd.executeQuery()
+    val resultSetIter = new ResultSetIter(rs, columns)
+    resultSetIter.toArray
+  }
+
   class ResultSetIter(rs: ResultSet, columns: Array[String]) extends Iterator[Array[String]] {
     override def hasNext: Boolean = rs.next()
 

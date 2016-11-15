@@ -32,7 +32,7 @@
 
 ###Risk: 
     risk_id, possibility, impact(影响程度), trigger(触发器), creator_name, 
-    follower_name, description, risk_type, status, update_time, parent_risk_id, project_id
+    follower_name, description, risk_type, status, update_time, parent_risk_id, project_id
 
 ###FollowUp(跟进): 
     followup_id, possibility, impact(影响程度), trigger(触发器), creator_name, 

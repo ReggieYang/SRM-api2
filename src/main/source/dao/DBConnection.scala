@@ -1,6 +1,5 @@
 package dao
 
-import java.sql.{Connection, DriverManager}
 
 import com.mchange.v2.c3p0.ComboPooledDataSource
 

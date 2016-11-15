@@ -17,11 +17,21 @@ class RiskDao(conn: Connection) {
   val riskTable = ModelFactory.getTableName(classOf[Risk])
   val riskColumns = ModelFactory.getFieldNames(classOf[Risk])
   val riskTypes = ModelFactory.getFieldTypes(classOf[Risk])
+  val riskPk = riskColumns.take(1)
+  val riskPkTypes = riskTypes.take(1)
 
   def getRisk(projectId: String): Array[Risk] = {
    val risks = DaoFactory.select(conn, riskTable, riskColumns,
      Array("project_id"), Array(projectId), Array("int"))
     risks.map(x => ModelFactory.createRisk(x))
   }
+
+  def getRiskById(riskId: String): Risk = {
+    val risks = DaoFactory.select(conn, riskTable, riskColumns, riskPk, Array(riskId), riskPkTypes)
+    if (risks.length == 0) null
+    else ModelFactory.createRisk(risks(0))
+  }
+
+
 
 }

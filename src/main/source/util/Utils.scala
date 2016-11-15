@@ -16,6 +16,8 @@ object Utils {
 
   lazy val NULL_ID = -1
 
+  lazy val SYSTEM_INITIAL_TIME = "2010-01-01 00:00:00"
+
   def toCamel(snack: String): String = {
     val terms = snack.toLowerCase().split("_")
     terms.reduceLeft(
