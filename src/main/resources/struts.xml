@@ -95,6 +95,11 @@
                 <param name="root">jsonResult</param>
             </result>
         </action>
+        <action name="getCurrentRiskInfo" class="action.FollowupAction" method="getCurrentRiskInfo">
+            <result type="json">
+                <param name="root">jsonResult</param>
+            </result>
+        </action>
 
         <action name="topRisk" class="action.AnalysisAction" method="topRisk">
             <result type="json">

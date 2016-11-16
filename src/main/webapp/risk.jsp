@@ -62,9 +62,9 @@
                     <s:iterator id="risk" value="risks" status="st">
                         <tr>
                             <th><s:property value="#st.index+1" /></th>
-                            <td><s:property value="#risk.updateTime" /></td>
+                            <td><s:property value="#risk.updateTime"/></td>
                             <td><s:property value="#risk.description" /></td>
-                            <td><s:property value="#risk.status" /></td>
+                            <td><span class='label <s:property value="#risk.status" />'><s:property value="#risk.status" /></span></td>
                             <td><s:property value="#risk.riskType" /></td>
                             <td><s:property value="#risk.possibility" /></td>
                             <td><s:property value="#risk.impact" /></td>

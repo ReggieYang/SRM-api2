@@ -15,9 +15,9 @@ $(document).ready(function() {
             if (data.result == 'success') {
                 let xData = [];
                 data.riskList.forEach(function(val, idx) {
-                    xData.push(val.riskId);
+                    xData.push(val.description);
                 });
-                drawTopRisks(xData, data.description);
+                drawTopRisks(xData, data.countList);
             } else {
                 alert(data.message);
             }
@@ -48,24 +48,24 @@ $(document).ready(function() {
     });
 
     function drawTopRisks(xData, yData) {
-        let option = getOption(xData, yData);
+        let option = getOption(xData, yData, 'risks');
         option['color'] = ['#2f4554'];
         riskChart.setOption(option);
     }
 
     function drawTopProblems(xData, yData) {
-        let option = getOption(xData, yData);
+        let option = getOption(xData, yData, 'problems');
         problemChart.setOption(option);
     }
 
-    function getOption(xData, yData) {
+    function getOption(xData, yData, type) {
         let option = {
             title: {
                 show: false
             },
             tooltip: {},
             legend: {
-                data:['problems'],
+                data:[type],
                 top: 'bottom'
             },
             xAxis: {
@@ -73,7 +73,7 @@ $(document).ready(function() {
             },
             yAxis: {},
             series: [{
-                name: 'problems',
+                name: type,
                 type: 'bar',
                 data: yData
             }]

@@ -1,4 +1,18 @@
 $(document).ready(function() {
+    $.get('./JSON/getCurrentRiskInfo', function(data) {
+        console.log(data);
+        if (data.result == 'success') {
+            let currentRisk = data.currentRisk;
+            $('#followupForm [name="status"]').val(currentRisk.status);
+            $('#followupForm [name="type"]').val(currentRisk.riskType);
+            $('#followupForm [name="possibility"]').val(currentRisk.possibility);
+            $('#followupForm [name="impact"]').val(currentRisk.impact);
+            $('#followupForm [name="followerName"]').val(currentRisk.followerName);
+        } else {
+            // alert(data.message);
+        }
+    });
+
     $('#addButton').click(function() {
         let isClicked = $(this).attr('isClicked');
         console.log(isClicked);

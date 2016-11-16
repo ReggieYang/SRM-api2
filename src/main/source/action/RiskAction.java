@@ -74,7 +74,7 @@ public class RiskAction extends BaseAction {
         for (int i = 0; i<risks.length; i++) {
             risks[i] = importRisks.get(i);
         }
-        rs.importRisk(risks, getCurrentProjectId());
+        rs.importRisk(risks, getCurrentProjectId(), getCurrentUser());
         jsonResult.put("result", "success");
         return SUCCESS;
     }

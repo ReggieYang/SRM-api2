@@ -13,7 +13,7 @@ import java.util.Map;
  * Created by Wei on 2016/11/16.
  */
 public class AnalysisAction extends BaseAction {
-
+    private String user;
     private String riskFromDate;
     private String riskToDate;
     private String problemFromDate;
@@ -27,7 +27,12 @@ public class AnalysisAction extends BaseAction {
     RiskService rs = new RiskService(conn);
 
     public String toAnalysis() {
-        return SUCCESS;
+        user = getCurrentUser();
+        if (user.equals("")) {
+            return ERROR;
+        } else {
+            return SUCCESS;
+        }
     }
 
     public String topRisk() {
@@ -105,5 +110,13 @@ public class AnalysisAction extends BaseAction {
 
     public void setJsonResult(Map<String, Object> jsonResult) {
         this.jsonResult = jsonResult;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 }

@@ -62,23 +62,26 @@
                     <s:iterator id="followup" value="followups" status="st">
                         <tr>
                             <th><s:property value="#st.index+1" /></th>
-                            <td><s:property value="#followup.updateTime" /></td>
+                            <td><s:property value="#followup.updateTime"/></td>
                             <td><s:property value="#followup.description" /></td>
-                            <td><s:property value="#followup.status" /></td>
+                            <td><span class='label <s:property value="#followup.status" />'><s:property value="#followup.status" /></span></td>
                             <td><s:property value="#followup.riskType" /></td>
                             <td><s:property value="#followup.possibility" /></td>
                             <td><s:property value="#followup.impact" /></td>
                             <td><s:property value="#followup.threshold" /></td>
                             <td><s:property value="#followup.followerName" /></td>
-                            <td><div style="display: inline; float: right;">
+                            <td>
+                                <!--<div style="display: inline; float: right;">
                                 <button followup-id='<s:property value="#followup.followupId" />' class="deleteFollowup btn btn-xs btn-danger" style="cursor: pointer;padding-top: 3px;"><i class="glyphicon glyphicon-remove"></i></button>
-                            </div></td>
+                                </div>-->
+                            </td>
                         </tr>
                     </s:iterator>
                     </tbody>
                 </table>
             </div>
 
+            <s:if test="%{user == follower||position == 'PM'}">
             <div>
                 <button class="btn btn-primary btn-lg" style="margin-top:20px;" id="addButton" isClicked="false">
                     <span id="addButtonText">Add a followup</span>
@@ -90,7 +93,7 @@
                             <div class="form-group">
                                 <label for="description" class="col-sm-2 control-label">Description</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" required name="description">
+                                    <input type="text" class="form-control" required name="description" value='<s:property value="currentRisk.description" />'>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -137,7 +140,7 @@
                             <div class="form-group">
                                 <label for="threshold" class="col-sm-2 control-label">Threshold</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="threshold">
+                                    <input type="text" class="form-control" name="threshold" value='<s:property value="currentRisk.threshold" />'>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -159,6 +162,8 @@
                     </div>
                 </div>
             </div>
+            </s:if>
+
         </div>
     </div>
   </div>

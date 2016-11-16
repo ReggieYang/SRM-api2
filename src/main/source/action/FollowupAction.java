@@ -7,6 +7,7 @@ import model.Risk;
 import service.FollowupService;
 import service.ProjectService;
 import service.RiskService;
+import service.UserService;
 import util.Utils;
 
 import java.sql.Connection;
@@ -18,9 +19,12 @@ import java.util.Map;
  */
 public class FollowupAction extends BaseAction {
     private String user;
+    private String position;
     private String riskId;
     private Followup[] followups;
     private String[] participants;
+    private Risk currentRisk;
+    private String follower;
 
     private String deleteFollowupId;
 
@@ -34,14 +38,18 @@ public class FollowupAction extends BaseAction {
     FollowupService fs = new FollowupService(conn);
     RiskService rs = new RiskService(conn);
     ProjectService ps = new ProjectService(conn);
+    UserService us = new UserService(conn);
 
     public String toFollowup() {
         user = getCurrentUser();
         if (user.equals("")) {
             return ERROR;
         } else {
+            setPosition(us.getPosition(user));
             setFollowups(fs.allFollowup(getCurrentRiskId()));
+            setCurrentRisk(rs.getRiskById(getCurrentRiskId()));
             setParticipants(ps.allProjectDeveloper(getCurrentProjectId()));
+            setFollower(currentRisk.getFollowerName());
             return SUCCESS;
         }
     }
@@ -55,7 +63,7 @@ public class FollowupAction extends BaseAction {
 
     public String addFollowup() {
         jsonResult = new HashMap<String, Object>();
-        Risk currentRisk = rs.getRiskById(getCurrentRiskId());
+        setCurrentRisk(rs.getRiskById(getCurrentRiskId()));
         newFollowup.setRiskId(currentRisk.getRiskId());
         newFollowup.setProjectId(currentRisk.getProjectId());
         newFollowup.setParentRiskId(currentRisk.getParentRiskId());
@@ -70,6 +78,13 @@ public class FollowupAction extends BaseAction {
         jsonResult = new HashMap<String, Object>();
         fs.deleteFollowup(deleteFollowupId);
         jsonResult.put("result", "success");
+        return SUCCESS;
+    }
+
+    public String getCurrentRiskInfo() {
+        jsonResult = new HashMap<String, Object>();
+        jsonResult.put("result", "success");
+        jsonResult.put("currentRisk", rs.getRiskById(getCurrentRiskId()));
         return SUCCESS;
     }
 
@@ -127,5 +142,29 @@ public class FollowupAction extends BaseAction {
 
     public void setParticipants(String[] participants) {
         this.participants = participants;
+    }
+
+    public Risk getCurrentRisk() {
+        return currentRisk;
+    }
+
+    public void setCurrentRisk(Risk currentRisk) {
+        this.currentRisk = currentRisk;
+    }
+
+    public String getFollower() {
+        return follower;
+    }
+
+    public void setFollower(String follower) {
+        this.follower = follower;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }

@@ -83,3 +83,11 @@ body {
 .main .page-header {
   margin-top: 0;
 }
+
+.Risk {
+  background-color: #2f4554;
+}
+
+.Problem {
+  background-color: #c23531;
+}
