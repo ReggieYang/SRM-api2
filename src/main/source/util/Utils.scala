@@ -14,7 +14,8 @@ object Utils {
 
   lazy val EmptyString = ""
 
-  lazy val NULL_ID = -1
+  lazy val NULL_ID = Integer.MIN_VALUE
+  lazy val EMPTY_VALUE = -1
 
   lazy val SYSTEM_INITIAL_TIME = "2010-01-01 00:00:00"
 
