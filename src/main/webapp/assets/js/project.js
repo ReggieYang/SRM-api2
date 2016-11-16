@@ -17,7 +17,7 @@ $(document).ready(function() {
         console.log('submit');
         $.post('./JSON/addProject',
         {
-            'newProject_projectName': $('#projectName').val()
+            'newProject_projectName': $('#projectForm [name="projectName"]').val()
         }, function(data) {
             console.log(data);
             if (data.result == 'success') {

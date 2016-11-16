@@ -18,10 +18,10 @@ public class DemoJava {
 
         Connection conn = DBConnection.getConnection();
         RiskService riskService = new RiskService(conn);
-        for (Tuple2<Risk, String> riskObjectTuple2 : riskService.getIdentifiedRisk(Utils.SYSTEM_INITIAL_TIME(), Utils.getCurrentTime())) {
-            System.out.println(riskObjectTuple2._1());
-            System.out.println(riskObjectTuple2._2());
-        }
+//        for (Tuple2<Risk, String> riskObjectTuple2 : riskService.getIdentifiedRisk(Utils.SYSTEM_INITIAL_TIME(), Utils.getCurrentTime())) {
+//            System.out.println(riskObjectTuple2._1());
+//            System.out.println(riskObjectTuple2._2());
+//        }
 
 
     }

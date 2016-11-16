@@ -12,9 +12,10 @@
   <!-- Site Properties -->
   <title>RisKick</title>
   <link rel="stylesheet" type="text/css" href="assets/dist/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="assets/css/base.css">
 
 </head>
-<body style="margin: 2em;">
+<body>
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -41,128 +42,168 @@
 	</div>
   </nav>
 
-  <div class="container" style="padding-top:20px;">
+  <div class="container-fluid">
     <div class="row">
-        <h3>Risks</h3>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead><tr>
-                    <th>#</th><th>Description</th><th>Type</th><th>Possibility</th><th>Impact</th><th>Threshold</th>
-                    <th>Creator</th><th>Follower</th><th></th>
-                </tr></thead>
-                <tbody>
-                <s:iterator id="risk" value="risks" status="st">
-                    <tr>
-                        <th><s:property value="#st.index+1" /></th>
-                        <td><s:property value="#risk.description" /></td>
-                        <td><s:property value="#risk.riskType" /></td>
-                        <td><s:property value="#risk.possibility" /></td>
-                        <td><s:property value="#risk.impact" /></td>
-                        <td><s:property value="#risk.threshold" /></td>
-                        <td><s:property value="#risk.creatorName" /></td>
-                        <td><s:property value="#risk.followerName" /></td>
-                        <td><a risk-id='<s:property value="#risk.riskId" />' class="followupLink" style="cursor: pointer;">followups</a>
-                        <div style="display: inline; float: right;">
-                            <!--<button risk-id='<s:property value="#risk.riskId" />' class="modifyRisk btn btn-xs btn-primary" style="cursor: pointer;padding-top: 3px;"  data-toggle="modal" data-target="#riskInfo"><i class="glyphicon glyphicon-pencil"></i></button>-->
-                            <button risk-id='<s:property value="#risk.riskId" />' class="deleteRisk btn btn-xs btn-danger" style="cursor: pointer;padding-top: 3px;"><i class="glyphicon glyphicon-remove"></i></button>
-                        </div></td>
-                    </tr>
-                </s:iterator>
-                </tbody>
-            </table>
-        </div>
+        <div class="col-sm-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li class="active"><a href="project">Projects</a></li>
+				<li><a href="analysis">Analysis</a></li>
+			</ul>
+		</div>
 
-        <div>
-            <button class="btn btn-primary btn-lg" style="margin-top:20px;" id="addButton" isClicked="false">
-                <span id="addButtonText">Add a risk</span>
-            </button>
+        <div class="col-sm-10 col-sm-offset-2 main">
+            <h1 class="page-header">Risks</h1>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead><tr>
+                        <th>#</th><th>Date</th><th>Description</th><th>Status</th><th>Type</th><th>Possibility</th><th>Impact</th><th>Threshold</th><th>Creator</th><th>Follower</th><th></th>
+                    </tr></thead>
+                    <tbody>
+                    <s:iterator id="risk" value="risks" status="st">
+                        <tr>
+                            <th><s:property value="#st.index+1" /></th>
+                            <td><s:property value="#risk.updateTime" /></td>
+                            <td><s:property value="#risk.description" /></td>
+                            <td><s:property value="#risk.status" /></td>
+                            <td><s:property value="#risk.riskType" /></td>
+                            <td><s:property value="#risk.possibility" /></td>
+                            <td><s:property value="#risk.impact" /></td>
+                            <td><s:property value="#risk.threshold" /></td>
+                            <td><s:property value="#risk.creatorName" /></td>
+                            <td><s:property value="#risk.followerName" /></td>
+                            <td><a risk-id='<s:property value="#risk.riskId" />' class="followupLink" style="cursor: pointer;">followups</a>
+                            <div style="display: inline; float: right;">
+                                <button risk-id='<s:property value="#risk.riskId" />' class="deleteRisk btn btn-xs btn-danger" style="cursor: pointer;padding-top: 3px;"><i class="glyphicon glyphicon-remove"></i></button>
+                            </div></td>
+                        </tr>
+                    </s:iterator>
+                    </tbody>
+                </table>
+            </div>
 
-            <div class="panel panel-default" style="margin-top:20px;display:none;" id="addPanel">
-                <div class="panel-body">
-                    <form class="form-horizontal" id="riskForm">
-                        <div class="form-group">
-                            <label for="description" class="col-sm-2 control-label">Description</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="description" required name="description">
+            <div>
+                <button class="btn btn-primary btn-lg" style="margin-top:20px;display: block;" id="addButton" isClicked="false">
+                    <span id="addButtonText">Add a risk</span>
+                </button>
+
+                <div class="panel panel-default" style="margin-top:20px;display:none;" id="addPanel">
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="riskForm">
+                            <div class="form-group">
+                                <label for="description" class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required name="description">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="type" class="col-sm-2 control-label">Type</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" id="type" required name="type">
-                                    <option value="Quality Risk">Quality Risk</option>
-                                    <option value="Technical Risk">Technical Risk</option>
-                                    <option value="Management Risk">Management Risk</option>
-                                    <option value="Legal Risk">Legal Risk</option>
-                                    <option value="Business Risk">Business Risk</option>
+                            <div class="form-group">
+                                <label for="type" class="col-sm-2 control-label">Status</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" required name="status">
+                                        <option value="Risk">Risk</option>
+                                        <option value="Problem">Problem</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="type" class="col-sm-2 control-label">Type</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" required name="type">
+                                        <option value="Quality Risk">Quality Risk</option>
+                                        <option value="Technical Risk">Technical Risk</option>
+                                        <option value="Management Risk">Management Risk</option>
+                                        <option value="Legal Risk">Legal Risk</option>
+                                        <option value="Business Risk">Business Risk</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="possibility" class="col-sm-2 control-label">Possibility</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" required name="possibility">
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="impact" class="col-sm-2 control-label">Impact</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" required name="impact">
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="threshold" class="col-sm-2 control-label">Threshold</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="threshold">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="followerName" class="col-sm-2 control-label">Follower</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control" name="followerName">
+                                        <s:iterator id="participant" value="participants" status="st">
+                                            <option value='<s:property value="#participant" />'><s:property value="#participant" /></option>
+                                        </s:iterator>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success"> Add </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="divider" style="margin: 20px 0;border-top: 1px solid #eee;"></div>
+
+                <button class="btn btn-primary btn-lg" style="margin-top:20px;display: block;" id="importButton" isClicked="false">
+                    <span id="importButtonText">Import risks</span>
+                </button>
+
+                <div class="panel panel-default" style="margin-top:20px;display:none;" id="importPanel">
+                    <div class="panel-body">
+                        <form id="searchForm" class="form-inline">
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select class="form-control" required name="status">
+                                    <option value="Risk">Risk</option>
+                                    <option value="Problem">Problem</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="possibility" class="col-sm-2 control-label">Possibility</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" id="possibility" required name="possibility">
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
+                            <div class="form-group">
+                                <label for="fromDate">From</label>
+                                <input type="date" class="form-control" name="fromDate">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="impact" class="col-sm-2 control-label">Impact</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" id="impact" required name="impact">
-                                    <option value="High">High</option>
-                                    <option value="Medium">Medium</option>
-                                    <option value="Low">Low</option>
-                                </select>
+                            <div class="form-group">
+                                <label for="toDate">To</label>
+                                <input type="date" class="form-control" name="toDate">
                             </div>
+                            <button type="submit" class="btn btn-primary"> Search </button>
+                        </form>
+
+                        <div class="table-responsive" style="margin-top: 30px;">
+                            <table class="table table-striped" id="importTable">
+                                <thead><tr>
+                                    <th>#</th><th>Description</th><th>Type</th><th>Possibility</th><th>Impact</th><th>Threshold</th><th>Creator</th><th>Follower</th>
+                                </tr></thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="form-group">
-                            <label for="threshold" class="col-sm-2 control-label">Threshold</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="threshold" name="threshold">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="followerName" class="col-sm-2 control-label">Follower</label>
-                            <div class="col-sm-10">
-                                <select class="form-control" id="followerName" name="followerName">
-                                    <s:iterator id="participant" value="participants" status="st">
-                                        <option value='<s:property value="#participant" />'><s:property value="#participant" /></option>
-                                    </s:iterator>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-success"> Add </button>
-                            </div>
-                        </div>
-                    </form>
+                        <button class="btn btn-success" id="importRiskButton"> Import </button>
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="riskInfo" tabindex="-1" role="dialog" aria-labelledby="riskInfoLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="riskInfoLabel">Modify Project</h4>
-      </div>
-      <div class="modal-body">
-          ...
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Modify</button>
-      </div>
-      </div>
-  </div>
   </div>
 
 <script src="assets/dist/jquery/jquery-2.2.1.min.js"></script>

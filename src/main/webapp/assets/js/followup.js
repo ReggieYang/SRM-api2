@@ -17,7 +17,13 @@ $(document).ready(function() {
         console.log('submit');
         $.post('./JSON/addFollowup',
         {
-            'newFollowup_status': $('#status').val()
+            'newFollowup.description': $('#followupForm [name="description"]').val(),
+            'newFollowup.status': $('#followupForm [name="status"]').val(),
+            'newFollowup.riskType': $('#followupForm [name="type"]').val(),
+            'newFollowup.possibility': $('#followupForm [name="possibility"]').val(),
+            'newFollowup.impact': $('#followupForm [name="impact"]').val(),
+            'newFollowup.threshold': $('#followupForm [name="threshold"]').val(),
+            'newFollowup.followerName': $('#followupForm [name="followerName"]').val()
         }, function(data) {
             console.log(data);
             if (data.result == 'success') {

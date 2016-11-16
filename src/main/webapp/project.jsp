@@ -12,9 +12,10 @@
   <!-- Site Properties -->
   <title>RisKick</title>
   <link rel="stylesheet" type="text/css" href="assets/dist/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="assets/css/base.css">
 
 </head>
-<body style="margin: 2em;">
+<body>
 
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
@@ -42,87 +43,70 @@
 	</div>
   </nav>
 
-  <div class="container" style="padding-top:20px;">
+  <div class="container-fluid">
     <div class="row">
-        <h2>My projects</h2>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead><tr>
-                    <th>#</th><th>Name</th><th>Creator</th><th></th>
-                </tr></thead>
-                <tbody>
-                <s:iterator id="project" value="projects" status="st">
-                    <tr>
-                        <th><s:property value="#st.index+1" /></th>
-                        <td><s:property value="#project.projectName" /></td>
-                        <td><s:property value="#project.creatorName" /></td>
-                        <td><a project-id='<s:property value="#project.projectId" />' class="riskLink" style="cursor: pointer;">risks</a>
-                        <s:if test="%{position == 'PM'}">
-                        <div style="display: inline; float: right;">
-                            <!--<button project-id='<s:property value="#project.projectId" />' class="modifyProject btn btn-primary btn-xs" style="cursor: pointer;padding-top: 3px;" data-toggle="modal" data-target="#projectInfo"><i class="glyphicon glyphicon-pencil"></i></button>-->
-                            <button project-id='<s:property value="#project.projectId" />' class="deleteProject btn btn-danger btn-xs" style="cursor: pointer;padding-top: 3px;margin-left: 10px;"><i class="glyphicon glyphicon-remove"></i></button>
-                        </div></s:if></td>
-                    </tr>
-                </s:iterator>
-                </tbody>
-            </table>
-        </div>
+        <div class="col-sm-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li class="active"><a href="project">Projects</a></li>
+				<li><a href="analysis">Analysis</a></li>
+			</ul>
+		</div>
 
-        <s:if test="%{position == 'PM'}">
-        <div>
-            <button class="btn btn-primary btn-lg" style="margin-top:20px;" id="addButton" isClicked="false">
-                <span id="addButtonText">Add a project</span>
-            </button>
+        <div class="col-sm-10 col-sm-offset-2 main">
+            <h1 class="page-header">Projects</h1>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead><tr>
+                        <th>#</th><th>Name</th><th>Creator</th><th></th>
+                    </tr></thead>
+                    <tbody>
+                    <s:iterator id="project" value="projects" status="st">
+                        <tr>
+                            <th><s:property value="#st.index+1" /></th>
+                            <td><s:property value="#project.projectName" /></td>
+                            <td><s:property value="#project.creatorName" /></td>
+                            <td><a project-id='<s:property value="#project.projectId" />' class="riskLink" style="cursor: pointer;">risks</a>
+                            <s:if test="%{position == 'PM'}">
+                            <div style="display: inline; float: right;">
+                                <button project-id='<s:property value="#project.projectId" />' class="deleteProject btn btn-danger btn-xs" style="cursor: pointer;padding-top: 3px;"><i class="glyphicon glyphicon-remove"></i></button>
+                            </div></s:if></td>
+                        </tr>
+                    </s:iterator>
+                    </tbody>
+                </table>
+            </div>
 
-            <div class="panel panel-default" style="margin-top:20px;display:none;" id="addPanel">
-                <div class="panel-body">
-                    <form class="form-horizontal" id="projectForm">
-                        <div class="form-group">
-                            <label for="projectName" class="col-sm-2 control-label">Project name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="projectName" required name="projectName">
+            <s:if test="%{position == 'PM'}">
+            <div>
+                <button class="btn btn-primary btn-lg" style="margin-top:20px;" id="addButton" isClicked="false">
+                    <span id="addButtonText">Add a project</span>
+                </button>
+
+                <div class="panel panel-default" style="margin-top:20px;display:none;" id="addPanel">
+                    <div class="panel-body">
+                        <form class="form-horizontal" id="projectForm">
+                            <div class="form-group">
+                                <label for="projectName" class="col-sm-2 control-label">Project name</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" required name="projectName">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-success"> Add </button>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success"> Add </button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
+            </s:if>
+            <s:else>
+                <h4>Only PM can add a project</h4>
+            </s:else>
+            </div>
         </div>
-        </s:if>
-        <s:else>
-            <h4>Only PM can add a project</h4>
-        </s:else>
-        </div>
-  </div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="projectInfo" tabindex="-1" role="dialog" aria-labelledby="projectInfoLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-      <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title" id="projectInfoLabel">Modify Project</h4>
-      </div>
-      <div class="modal-body">
-          <form class="form-horizontal" id="modifyProjectForm">
-              <div class="form-group">
-                  <label for="projectName" class="col-sm-2 control-label">Project name</label>
-                  <div class="col-sm-10">
-                      <input type="text" class="form-control" required name="projectName">
-                  </div>
-              </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Modify</button>
-      </div>
-      </div>
-  </div>
   </div>
 
 <script src="assets/dist/jquery/jquery-2.2.1.min.js"></script>

@@ -28,6 +28,11 @@
             <result name="error">login.jsp</result>
         </action>
 
+        <action name="analysis" class="action.AnalysisAction" method="toAnalysis">
+            <result name="success">analysis.jsp</result>
+            <result name="error">login.jsp</result>
+        </action>
+
     </package>
 
     <!-- ajax数据 -->
@@ -64,6 +69,11 @@
                 <param name="root">jsonResult</param>
             </result>
         </action>
+        <action name="importRisk" class="action.RiskAction" method="importRisk">
+            <result type="json">
+                <param name="root">jsonResult</param>
+            </result>
+        </action>
         <action name="deleteRisk" class="action.RiskAction" method="deleteRisk">
             <result type="json">
                 <param name="root">jsonResult</param>
@@ -81,6 +91,17 @@
             </result>
         </action>
         <action name="deleteFollowup" class="action.FollowupAction" method="deleteFollowup">
+            <result type="json">
+                <param name="root">jsonResult</param>
+            </result>
+        </action>
+
+        <action name="topRisk" class="action.AnalysisAction" method="topRisk">
+            <result type="json">
+                <param name="root">jsonResult</param>
+            </result>
+        </action>
+        <action name="topProblem" class="action.AnalysisAction" method="topProblem">
             <result type="json">
                 <param name="root">jsonResult</param>
             </result>
