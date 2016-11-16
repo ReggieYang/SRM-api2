@@ -24,6 +24,6 @@ class FollowupService(conn: Connection) {
     DaoFactory.updateByPK(conn, followupDao.followupTable, followupDao.followupColumns, followup, followupDao.followupTypes)
   }
 
-  def allFollowup(riskId: String): Array[Followup] = followupDao.getFollowup(riskId)
+  def allFollowup(riskId: String): Array[Followup] = followupDao.getFollowup(riskId).sortBy(_.updateTime).reverse
 
 }

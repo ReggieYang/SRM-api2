@@ -28,7 +28,7 @@ class RiskService(conn: Connection) {
   }
 
   def allRisk(projectId: String): Array[Risk] = {
-    riskDao.getRisk(projectId)
+    riskDao.getRisk(projectId).sortBy(_.updateTime).reverse
   }
 
   def getRiskById(riskId: String): Risk = riskDao.getRiskById(riskId)
